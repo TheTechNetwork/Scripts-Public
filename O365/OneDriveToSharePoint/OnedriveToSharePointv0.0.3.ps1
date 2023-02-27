@@ -4,9 +4,9 @@ Install-Module -Name "PnP.PowerShell"
 
 #Parameters
 $UPN = Read-Host -Prompt 'Input the Username Replace any Symbols with an Underscore'
-$OneDriveSiteURL = "https://proudmomentsaba-my.sharepoint.com/personal/$UPN"
+$OneDriveSiteURL = "https://contoso-my.sharepoint.com/personal/$UPN"
 $DownloadPath ="C:\Temp\OneDrive\$UPN"
-$SharePointSiteURL = "https://proudmomentsaba.sharepoint.com/sites/EliB-Test/"
+$SharePointSiteURL = "https://contoso.sharepoint.com/sites/SiteName/"
 $TargetSharePointFolder = "Documents/OneDriveDump/$UPN"
 
 #Download Onedrive Content to "C:\Temp\OneDrive\$UPN"
