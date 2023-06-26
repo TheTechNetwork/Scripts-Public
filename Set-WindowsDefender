@@ -1,0 +1,46 @@
+#Windows Firewall
+netsh advfirewall reset
+#Windows Defender
+Set-MpPreference -DisableRealtimeMonitoring $false
+Set-MpPreference -PUAProtection 1
+Set-MpPreference -DisableIOAVProtection $false
+Set-MpPreference -MAPSReporting Advanced
+Set-MpPreference -SubmitSamplesConsent SendAllSamples
+#Create Defender Root Keys (Overwrites Existing Data/Policys)
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "MpEngine"
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "Real-Time Protection"
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\" -Name "WTDS" 
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\WTDS" -Name "Components" 
+#Windows Smartscreen for app store
+New-Item -Path "HKLM:\Software\Policies\Microsoft\Windows\CurrentVersion" -Name "AppHost"
+#Create Edge Root Keys
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft" -Name "Edge"
+New-Item -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "Recommended"
+#Create Defender Policy Keys
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows\System\" -Name "EnableSmartScreen" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WTDS\Components" -Name "ServiceEnabled" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WTDS\Components" -Name "NotifyMalicious" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WTDS\Components" -Name "NotifyPasswordReuse" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\WTDS\Components" -Name "NotifyUnsafeApp" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -Name "DisableBehaviorMonitoring" -Value 0 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -Name "DisableOnAccessProtection" -Value 0 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\Real-Time Protection" -Name "DisableScanOnRealtimeEnable" -Value 0 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "DisableAntiSpyware" -Value 0 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender\MpEngine" -Name "MpEnablePus" -Value 1 -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Windows Defender" -Name "PUAProtection" -Value 1 -PropertyType DWORD -Force
+#Create Edge Mandatory Settings
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SmartScreenEnabled" -Value 1 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge" -Name "SmartScreenPuaEnabled" -Value 1 -PropertyType DWORD -Force
+#Create Edge Recommended Settings
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\Recommended" -Name "DownloadRestrictions" -Value 2 -PropertyType DWORD -Force
+New-ItemProperty -Path "HKLM:\SOFTWARE\Policies\Microsoft\Edge\Recommended" -Name "SmartScreenForTrustedDownloadsEnabled" -Value 1 -PropertyType DWORD -Force
+#Windows Smartscreen for app store
+New-ItemProperty -Path "HKLM:\Software\Policies\Microsoft\Windows\CurrentVersion\AppHost" -Name "EnableWebContentEvaluation" -Value 1 -PropertyType DWORD -Force
+#Add Exclusions
+#Sentinel One
+Add-MpPreference -ExclusionPath "C:\Program Files\SentinelOne" 
+#Start Services
+start-service WinDefend
+start-service WdNisSvc
+#Start Defender Scan Offline Reboots machine and requires bitlocker key
+#Start-MpWDOScan
