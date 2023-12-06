@@ -1,6 +1,7 @@
 #Required intune appregistration permissions are
 #Name = IntuneHWIDScript
 #supported account types = Single Tenant
+#Permissions are Graph Application Permissions
 #DeviceManagementConfiguration.ReadWrite.All
 #DeviceManagementServiceConfig.ReadWrite.All
 #Redirect URI is web -  "https://localhost/"
