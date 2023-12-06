@@ -23,4 +23,4 @@ Set-ExecutionPolicy -ExecutionPolicy Bypass -Force
 Start-Sleep -Seconds 20
 
 # Execute Get-WindowsAutoPilotInfo command
-Get-WindowsAutoPilotInfo.ps1 -Online -TenantId $TenantID -AppId $ApplicationID -AppSecret $ApplicationSecret -GroupTag "HWIDScript"
+Get-WindowsAutoPilotInfo.ps1 -Online -TenantId $TenantID -AppId $ApplicationID -AppSecret $ApplicationSecret #-GroupTag "HWIDScript" 
