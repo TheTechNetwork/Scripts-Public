@@ -1,3 +1,9 @@
+#The API Creds and permissions required are 
+#APP Platform = Web
+#Redirect URI = https://localhost
+#Scopes = Monitoring
+#Allowed Grant Types = Client Credentials
+
 #This script reports on all patches installed on Windows Servers in a particular organization
 #It reports on the previous month's patch scans and installations
 #For example running the report on any day in August would give you patch scan and installation numbers for July.
