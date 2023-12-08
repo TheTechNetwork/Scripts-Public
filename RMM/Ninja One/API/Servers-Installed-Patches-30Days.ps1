@@ -40,7 +40,7 @@ $FirstDayString = $FirstDayOfPrecedingMonth.ToString('yyyyMMdd')
 $today = Get-Date -format "yyyyMMdd"
  
 # file path where CSV will be output
-$patchinfo_report = "/Users/jeffhunter/" + $today + "_Patch_Report.csv"
+$patchinfo_report = "/Users/EliBrody/" + $today + "_Patch_Report.csv"
  
 # define ninja urls
 $devices_url = "https://app.ninjarmm.com/v2/devices"
