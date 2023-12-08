@@ -1,6 +1,12 @@
+#The API Creds and permissions required are 
+#APP Platform = Web
+#Redirect URI = https://localhost
+#Scopes = Monitoring
+#Allowed Grant Types = Client Credentials
+
 #This script reports on all patches installed on Windows Servers in a particular organization
-#It reports on the previous month's patch scans and installations
-#For example running the report on any day in August would give you patch scan and installation numbers for July.
+#It reports on the previous year patch scans and installations
+#For example the dates now will give us from 01/01/2023 to 12/31/2023.
  
 # API authentication
 $body = @{
@@ -30,7 +36,7 @@ $FirstDayString = '20230101'
 $today = Get-Date -format "yyyyMMdd"
  
 # file path where CSV will be output
-$patchinfo_report = "/Users/jeffhunter/" + $today + "_Patch_Report.csv"
+$patchinfo_report = "/Users/EliBrody/" + $today + "_Patch_Report.csv"
  
 # define ninja urls
 $devices_url = "https://app.ninjarmm.com/v2/devices"
