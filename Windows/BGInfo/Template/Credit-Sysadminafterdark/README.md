@@ -1,4 +1,4 @@
-# Credits to https://gitlab.sysadminafterdark.com/sysadminafterdark/afterdark-bginfo-configuration
+# Credits to [SysadminAfterDark](https://gitlab.sysadminafterdark.com/sysadminafterdark/afterdark-bginfo-configuration)
 
 # AfterDark BGInfo Configuration
 
