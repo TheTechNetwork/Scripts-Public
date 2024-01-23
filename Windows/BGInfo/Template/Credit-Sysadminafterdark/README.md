@@ -34,7 +34,7 @@ If you are deploying at scale, or are just plain lazy, like I am, this is the pr
 | Bginfo64.exe                | 1     | Update | \\internal.sysadminafterdark.com\SYSVOL\internal.sysadminafterdark.com\scripts\BGInfo\Bginfo64.exe               | C:\Program Files\BGInfo\Bginfo64.exe                                                                  |
 | Template.bgi                | 2     | Update | \\internal.sysadminafterdark.com\SYSVOL\internal.sysadminafterdark.com\scripts\BGInfo\Template.bgi               | C:\Program Files\BGInfo\Template.bgi                                                                  |
 | Start Bginfo64 On Boot.lnk  | 3     | Update | \\internal.sysadminafterdark.com\SYSVOL\internal.sysadminafterdark.com\scripts\BGInfo\Start Bginfo64 On Boot.lnk | C:\ProgramData\Microsoft\Windows\Start Menu\Programs\Startup\Start Bginfo64 On Boot.lnk               |
-| all VBS files go here                  | 4     | Update | \\internal.sysadminafterdark.com\SYSVOL\internal.sysadminafterdark.com\scripts\BGInfo\ipv4.vbs                   | C:\Program Files\BGInfo\*                                                                   |
+| all VBS files go here                  | 4     | Update | \\internal.sysadminafterdark.com\SYSVOL\internal.sysadminafterdark.com\scripts\BGInfo\*                  | C:\Program Files\BGInfo\*                                                                   |
 
 
 7. Run gpupdate /force. Logout / Login and the script will display information related to your computer and network in the top right hand corner of the screen.
