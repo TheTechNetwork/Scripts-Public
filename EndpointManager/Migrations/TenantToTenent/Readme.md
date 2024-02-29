@@ -1,6 +1,55 @@
 ## Source
 [Steve Capacity - IntuneMigration (Github)](https://github.com/stevecapacity/IntuneMigration)
 
+## Changes From Source and Synopsis 
+**Changes**
+In the source the secrets and tenant info are stored in each script we moved it to a .env file 
+We added the downloads folder 
+We added Onedrive to copy as well and it copies over to the Standard user folder from where the Redirect known folder policy does its thing 
+
+**Things to do**
+Create a PPKG using [Windows Configuration Designer](https://apps.microsoft.com/detail/9nblggh4tx22?hl=en-US&gl=US) works best on a clean windows install VM is fine 
+
+create a dynamic user group in AAD with the filter 
+
+    (user.displayName -startsWith "package_") and (user.userPrincipalName -startsWith "package_")
+ and exclude it from all groups this will prevent enrollment issues 
+
+Create the App Registrations with the following Application permissions (These may change this is what we needed to get it to work)
+**In Source Tenant**  
+ 
+    Device.ReadWrite.All
+    DeviceManagementApps.ReadWrite.All
+    DeviceManagementConfiguration.Read.All
+    DeviceManagementConfiguration.ReadWrite.All
+    DeviceManagementManagedDevices.PrivilegedOperations.All
+    DeviceManagementManagedDevices.Read.All
+    DeviceManagementManagedDevices.ReadWrite.All
+    DeviceManagementServiceConfig.Read.All
+    DeviceManagementServiceConfig.ReadWrite.All
+    User.ReadWrite.All
+**In the Target Tenant**
+
+    Device.ReadWrite.All
+    DeviceManagementApps.ReadWrite.All
+    DeviceManagementConfiguration.ReadWrite.All
+    DeviceManagementManagedDevices.PrivilegedOperations.All
+    DeviceManagementManagedDevices.Read.All
+    DeviceManagementManagedDevices.ReadWrite.All
+    DeviceManagementServiceConfig.ReadWrite.All
+    User.ReadWrite.All
+Create a secret with a life or however long the project will last
+Fill out .env you can use the ***.env Template*** file as a baseline
+
+You can use the publish release Script to create the intunewin file 
+**Prerequisite**
+   
+
+    Install-Module -Name "IntuneWin32App" -AcceptLicense
+    
+  Update the paths in the script as needed 
+  The script will maintain a package version history and rename the new one based on the next minor version 
+
 # IntuneMigration
 
 Tenant to tenant Microsoft Intune device migration
