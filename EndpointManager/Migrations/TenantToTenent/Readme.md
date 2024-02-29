@@ -8,7 +8,7 @@ We added the downloads folder
 We added Onedrive to copy as well and it copies over to the Standard user folder from where the Redirect known folder policy does its thing 
 
 **Things to do**
-Create a PPKG using [Windows Configuration Designer](https://apps.microsoft.com/detail/9nblggh4tx22?hl=en-US&gl=US) works best on a clean windows install VM is fine 
+Create a PPKG using [Windows Configuration Designer](https://apps.microsoft.com/detail/9nblggh4tx22?hl=en-US&gl=US) works best on a clean windows install VM is fine rename it to ***migrate.ppkg***
 
 create a dynamic user group in AAD with the filter 
 
