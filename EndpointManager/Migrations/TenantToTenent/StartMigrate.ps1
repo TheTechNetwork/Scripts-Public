@@ -23,7 +23,7 @@ if (!(Test-Path $resourcePath)) {
 }
 
 # Construct path to .env file
-$envFile = "C:\Users\EliBrody\OneDrive - Promark Solution\Downloads\IntuneMigration-main\IntuneMigration-main\.env"
+$envFile = "C:\ProgramData\IntuneMigration\.env"
 
 if (Test-Path $envFile) {
     Write-Host "Loading environment variables from $envFile..."
