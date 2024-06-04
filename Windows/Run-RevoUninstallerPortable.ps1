@@ -1,4 +1,4 @@
-# Run iex (New-Object Net.WebClient).DownloadString('https://github.com/TheTechNetwork/Scripts-Public/blob/main/Windows/Run-RevoUninstallerPortable.ps1')
+# Run iex (New-Object Net.WebClient).DownloadString('https://raw.githubusercontent.com/TheTechNetwork/Scripts-Public/main/Windows/Run-RevoUninstallerPortable.ps1')
 
 
 cd "C:\Temp"
