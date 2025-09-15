@@ -150,4 +150,4 @@ Remove-Item "C:\ProgramData\CorpProxy\Set-PAC-HKCU.ps1"
 
 ## 9. Architecture Diagram
 
-![AVD Proxy Architecture](avd-proxy-architecture.png)
+![AVD Proxy Architecture](diagram.png)
