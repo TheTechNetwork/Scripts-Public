@@ -21,7 +21,10 @@ $SecretLifetimeDays = 730
 if (-not (Get-Module -ListAvailable -Name Microsoft.Graph)) {
     Install-Module Microsoft.Graph -Scope CurrentUser -Force
 }
+
+Import-Module 'Microsoft.Graph.Authentication'
 Import-Module Microsoft.Graph
+
 
 $scopes = @(
   "Application.ReadWrite.All",
