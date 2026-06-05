@@ -17,11 +17,21 @@ New-Item -ItemType Directory -Path $OutputDir -Force | Out-Null
 $AppName = "Intune HWID Upload ($MspName)"
 $SecretLifetimeDays = 730
 
-# Ensure Graph module
-if (-not (Get-Module -ListAvailable -Name Microsoft.Graph)) {
-    Install-Module Microsoft.Graph -Scope CurrentUser -Force
+# Ensure required Microsoft Graph sub-modules.
+# Importing the full Microsoft.Graph meta-module is slow and frequently fails
+# to load its RequiredModules (e.g. "Microsoft.Graph.Authentication is not
+# loaded"). The script only needs these three, so install/import them directly.
+$GraphModules = @(
+    "Microsoft.Graph.Authentication",
+    "Microsoft.Graph.Applications",
+    "Microsoft.Graph.Identity.DirectoryManagement"
+)
+foreach ($m in $GraphModules) {
+    if (-not (Get-Module -ListAvailable -Name $m)) {
+        Install-Module $m -Scope CurrentUser -Force -AllowClobber
+    }
+    Import-Module $m -Force
 }
-Import-Module Microsoft.Graph
 
 $scopes = @(
   "Application.ReadWrite.All",
