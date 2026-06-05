@@ -33,6 +33,7 @@ foreach ($m in $GraphModules) {
     Import-Module $m -Force
 }
 
+
 $scopes = @(
   "Application.ReadWrite.All",
   "Directory.ReadWrite.All",
