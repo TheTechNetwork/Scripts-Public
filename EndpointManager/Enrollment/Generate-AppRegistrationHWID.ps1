@@ -81,20 +81,36 @@ $requiredResourceAccess = @(
   }
 )
 
-# Create App + SP
-$app = New-MgApplication -DisplayName $AppName -RequiredResourceAccess $requiredResourceAccess
-$sp  = New-MgServicePrincipal -AppId $app.AppId
+# Reuse an existing app of the same name instead of creating duplicates.
+# Single quotes in the name are escaped for the OData filter.
+$filterName = $AppName -replace "'", "''"
+$app = Get-MgApplication -Filter "displayName eq '$filterName'" -All -ErrorAction SilentlyContinue | Select-Object -First 1
 
-# Long-lived secret
+if ($app) {
+    Write-Host "Existing app found, reusing it: $($app.AppId)" -ForegroundColor Yellow
+    $sp = Get-MgServicePrincipal -Filter "appId eq '$($app.AppId)'" -ErrorAction SilentlyContinue
+    if (-not $sp) { $sp = New-MgServicePrincipal -AppId $app.AppId }
+} else {
+    # Create App + SP
+    $app = New-MgApplication -DisplayName $AppName -RequiredResourceAccess $requiredResourceAccess
+    $sp  = New-MgServicePrincipal -AppId $app.AppId
+}
+
+# Long-lived secret (a fresh one is added on every run)
 $endDate = (Get-Date).AddDays($SecretLifetimeDays)
 $pwd = Add-MgApplicationPassword -ApplicationId $app.Id -PasswordCredential @{
-    displayName = "OOBE-HWID-Secret"
+    displayName = "OOBE-HWID-Secret $((Get-Date).ToString('yyyy-MM-dd'))"
     endDateTime = $endDate
 }
 
-# Grant admin consent
+# Grant admin consent (skip role assignments that already exist)
 Write-Host "Granting admin consent..." -ForegroundColor Cyan
+$existingAssignments = Get-MgServicePrincipalAppRoleAssignment -ServicePrincipalId $sp.Id -All -ErrorAction SilentlyContinue
 foreach ($role in $roles) {
+    $already = $existingAssignments | Where-Object {
+        $_.AppRoleId -eq $role.Id -and $_.ResourceId -eq $graphSp.Id
+    }
+    if ($already) { continue }
     New-MgServicePrincipalAppRoleAssignment `
         -ServicePrincipalId $sp.Id `
         -PrincipalId $sp.Id `
